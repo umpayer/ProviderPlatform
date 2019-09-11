@@ -9,10 +9,10 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.umpay.call.BaseAPI;
+import com.umpay.consts.BusiConsts;
 import com.umpay.demo.step0_准备工作.EnvConfig;
 import com.umpay.util.AddSign;
 import com.umpay.util.HttpUtilClient;
-import com.umpay.util.LogUtil;
 
 /**
  * @author: weijieming
@@ -24,11 +24,16 @@ public class API_8电子协议下载 extends BaseAPI {
 
     private String queryUrl = EnvConfig.url + "merchants/queryElectronicAgreement";
 
-    @Test
+    @SuppressWarnings("unchecked")
+	@Test
     public void down_电子协议下载() throws Exception{
         TreeMap<String, Object> reqPay = new TreeMap<String, Object>();
-        reqPay.put("acqSpId", EnvConfig.acqSpId);//代理商编号	10	M	代理商编号(联动平台分配)
-        reqPay.put("merId", merId);//报备编号	17	M
+    	/***********	参数校验	*********/
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
+    	Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get(BusiConsts.merId));
+    	
+    	reqPay.put("acqSpId",(String) EnvConfig.context.get(BusiConsts.acqSpId));//服务商编号	10	M	服务商编号
+    	reqPay.put("merId",(String) EnvConfig.context.get(BusiConsts.merId));//报备编号	16	M	报备编号
         reqPay.put("signature", "");
 
         //对请求报文做加签处理

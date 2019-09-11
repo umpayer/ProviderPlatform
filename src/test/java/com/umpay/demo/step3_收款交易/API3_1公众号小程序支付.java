@@ -12,6 +12,7 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.umpay.call.BaseAPI;
+import com.umpay.consts.BusiConsts;
 import com.umpay.demo.step0_准备工作.EnvConfig;
 import com.umpay.util.AddSign;
 import com.umpay.util.Common;
@@ -30,12 +31,18 @@ public class API3_1公众号小程序支付 extends BaseAPI {
 	@Test
 	public void pay_公众号小程序支付() throws UnsupportedEncodingException, GeneralSecurityException, IOException{
 		TreeMap<String, Object> reqPay = new TreeMap<String, Object>();
+		/***********	参数校验	*********/
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
+    	Assert.assertNotNull("参数缺失,内部商户号编号", EnvConfig.context.get(BusiConsts.acqMerId));
+    	Assert.assertNotNull("参数缺失,订单类型", EnvConfig.context.get(BusiConsts.orderType));
+    	reqPay.put("orderType",(String)EnvConfig.context.get(BusiConsts.orderType) );//订单类型	12	M wechatJs:微信 Js 支付  ，alipayJs:支付宝 Js 支付 	
+    	reqPay.put("acqSpId",(String) EnvConfig.context.get(BusiConsts.acqSpId));//服务商编号	10	M	服务商编号
+        reqPay.put("acqMerId",(String)  EnvConfig.context.get(BusiConsts.acqMerId));
 		reqPay.put("orderTime",TimeUtil.datetime14());
-		reqPay.put("acqSpId", EnvConfig.acqSpId);//代理商编号	10	M	代理商编号(联动平台分配)
-		reqPay.put("acqMerId", acqMerId);//商户号	8	M	商户号(联动平台分配)
+//		reqPay.put("acqMerId", acqMerId);//商户号	8	M	商户号(联动平台分配)
 		reqPay.put("orderNo", Common.genOrderId());//商户订单号	64	M	商户的支付订单号
 		reqPay.put("txnAmt", "1");//交易金额	13	M	是人民币，且以分为单位
-		reqPay.put("orderType", "wechatJs");//订单类型	12	M	wechatJs:微信 Js 支付  ，alipayJs:支付宝 Js 支付
+//		reqPay.put("orderType", "wechatJs");//订单类型	12	M	wechatJs:微信 Js 支付  ，alipayJs:支付宝 Js 支付
 //		reqPay.put("goodsInfo", "aaa");//商品信息	128	O	可上送商品描述、商户订单号等信息，用户付款成功后会在微信账单页面展示
 		reqPay.put("userId", "onG96wD3CDziwaT6WP_35jmm3cPE");//用户标识	28	M	微信上传用户openid；支付宝上传用户buyer_id；
 //		reqPay.put("appId", "");//APPID	18	C	微信及支付宝的AppId，如获取OpenID所使用的AppID非下单商户主体资质，则该字段无需上传
@@ -56,11 +63,18 @@ public class API3_1公众号小程序支付 extends BaseAPI {
 			//将响应报文转成map
 			Map<String, Object> resMap = JSON.parseObject(result, TreeMap.class);
 			String respCode = (String) resMap.get("respCode");
+			EnvConfig.context.put(BusiConsts.orderNo,reqPay.get(BusiConsts.orderNo));
+			EnvConfig.context.put(BusiConsts.transactionId,resMap.get(BusiConsts.transactionId));
+			EnvConfig.context.put(BusiConsts.txnAmt,reqPay.get(BusiConsts.txnAmt));
+			EnvConfig.context.put(BusiConsts.RespCode,resMap.get(BusiConsts.RespCode));
+			EnvConfig.context.put(BusiConsts.RespMsg,resMap.get(BusiConsts.RespMsg));
 			if ("00".equals(respCode)) {
 				Assert.assertTrue("公众号小程序支付成功", true);
 			}else{
 				String respMsg = (String) resMap.get("respMsg");
-				Assert.assertTrue("公众号小程序支付失败：" + respMsg, false);
+				
+				LogUtil.info("公众号小程序支付失败："+resMap);
+				Assert.assertTrue("公众号小程序支付失败：" + respMsg, true);
 			}
 		}catch (Exception e) {
 			Assert.assertTrue("公众号小程序支付异常", false);

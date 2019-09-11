@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.umpay.call.BaseAPI;
+import com.umpay.consts.BusiConsts;
 import com.umpay.demo.step0_准备工作.EnvConfig;
 import com.umpay.util.AddSign;
 import com.umpay.util.HttpUtilClient;
@@ -31,9 +32,11 @@ public class API_6_7电子签约 extends BaseAPI {
 	public void verifyCode_获取电子签约挑战码() throws Exception{
 		
 		TreeMap<String, Object> reqSign = new TreeMap<String, Object>();
-
-		reqSign.put("acqSpId", EnvConfig.acqSpId);//服务商编号	10	M	服务商编号
-		reqSign.put("merId", merId);//报备编号	16	M	报备编号
+		/***********	参数校验	*********/
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
+    	Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get(BusiConsts.merId));
+		reqSign.put("acqSpId", EnvConfig.context.get(BusiConsts.acqSpId));//服务商编号	10	M	服务商编号
+		reqSign.put("merId", EnvConfig.context.get(BusiConsts.merId));//报备编号	16	M	报备编号
 		
 		//对请求报文做加签处理
 		String reqMerinfo = AddSign.addSign(reqSign);
@@ -50,7 +53,7 @@ public class API_6_7电子签约 extends BaseAPI {
 			if ("00".equals(respCode)) {
 				String merId = (String) resMap.get("merId");
 //				EnvConfig.context.put("merId", merId);
-				EnvConfig.context.put("transCaId", (String) resMap.get("transCaId"));
+				EnvConfig.context.put(BusiConsts.transCaId, (String) resMap.get(BusiConsts.transCaId));
 				Assert.assertTrue("获取电子合约挑战码成功", true);
 				
 			}else{
@@ -74,11 +77,16 @@ public class API_6_7电子签约 extends BaseAPI {
 	public void verifyCode_电子签约确认() throws Exception{
 		
 		TreeMap<String, Object> reqSign = new TreeMap<String, Object>();
-
-		reqSign.put("acqSpId", EnvConfig.acqSpId);//服务商编号	10	M	服务商编号
-		reqSign.put("merId", merId);//报备编号	16	M	报备编号
-		reqSign.put("transCaId", (String) EnvConfig.context.get("transCaId"));//缓存事务ID
-		reqSign.put("verifyCode", (String) EnvConfig.context.get("VERIFYCODE"));//验证码
+		/***********	参数校验	*********/
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
+    	Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get(BusiConsts.merId));
+    	Assert.assertNotNull("参数缺失,缓存事务ID", EnvConfig.context.get(BusiConsts.transCaId));
+    	Assert.assertNotNull("参数缺失,验证码", EnvConfig.context.get(BusiConsts.verifyCode));
+    	
+		reqSign.put("acqSpId",(String) EnvConfig.context.get(BusiConsts.acqSpId));//服务商编号	10	M	服务商编号
+		reqSign.put("merId",(String) EnvConfig.context.get(BusiConsts.merId));//报备编号	16	M	报备编号
+		reqSign.put("transCaId", (String) EnvConfig.context.get(BusiConsts.transCaId));//缓存事务ID
+		reqSign.put("verifyCode", (String) EnvConfig.context.get(BusiConsts.verifyCode));//验证码
 		
 		//对请求报文做加签处理
 		String reqMerinfo = AddSign.addSign(reqSign);

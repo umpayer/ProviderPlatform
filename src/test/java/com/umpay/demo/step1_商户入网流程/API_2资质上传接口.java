@@ -24,8 +24,10 @@ public class API_2资质上传接口 extends API_2资质上传接口parent {
 	@Test
 	public void test_小微() throws Exception {
 		Map<String,Object> paramMap = new HashMap<String,Object>();
-		paramMap.put("acqSpId", EnvConfig.acqSpId);
-		paramMap.put("merId", merId);
+		Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get("acqSpId"));
+		Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get("merId"));
+		paramMap.put("acqSpId", EnvConfig.context.get("acqSpId"));
+		paramMap.put("merId", EnvConfig.context.get("merId"));
 
 		try{
 			//1、上传身份证正面
@@ -63,8 +65,10 @@ public class API_2资质上传接口 extends API_2资质上传接口parent {
 	@Test
 	public void test_个体_企业商户() throws Exception {
 		Map<String,Object> paramMap = new HashMap<String,Object>();
-		paramMap.put("acqSpId", EnvConfig.acqSpId);
-		paramMap.put("merId", merId);
+		Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get("acqSpId"));
+		Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get("merId"));
+		paramMap.put("acqSpId", EnvConfig.context.get("acqSpId"));
+		paramMap.put("merId", EnvConfig.context.get("merId"));
 
 		try{
 			//1、上传身份证正面

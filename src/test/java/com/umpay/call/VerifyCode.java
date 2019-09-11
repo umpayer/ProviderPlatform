@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import org.junit.Assert;
 import org.junit.Test;
 
+import com.umpay.consts.BusiConsts;
 import com.umpay.demo.step0_准备工作.EnvConfig;
 import com.umpay.util.LogUtil;
 import com.umpay.util.db.OnTestUcainfoaDBConnect;
@@ -35,8 +37,9 @@ public class VerifyCode extends BaseAPI{
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void 查询合同编号(){
-		String merid= (String) EnvConfig.context.get("merId");
+		String merid= (String) EnvConfig.context.get(BusiConsts.merId);
 		String sql = "SELECT CONTID FROM UTS.T_PROVIDER_CONT_INF  WHERE MERID = '"+merid+"'";		
 		LogUtil.info(sql);
 		Connection conn = OnTestUmssfrnaDBConnect.getConnect();
@@ -48,19 +51,21 @@ public class VerifyCode extends BaseAPI{
 			rs.next();
 			LogUtil.info("查询合同编号成功，结果集为："+rs.getString(1));
 			String contid = rs.getString(1);
-			EnvConfig.context.put("contid", contid);
+			EnvConfig.context.put(BusiConsts.contId, contid);
 			LogUtil.info("查询合同编号成功，contid为："+contid);
+			Assert.assertTrue("查询合同编号成功", true);
 		} catch (Exception e) {
 			LogUtil.error("查询合同编号失败，SQL语句为：" + sql,e);
-			e.printStackTrace();
+			Assert.assertTrue("查询合同编号失败异常", false);
 		} finally {
 			OnTestUmssfrnaDBConnect.release(null, pstmt, rs);
 		}
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public void 查询验证码(){
-		String contid= (String) EnvConfig.context.get("contid");
+		String contid= (String) EnvConfig.context.get(BusiConsts.contId);
 		String sql = "select TRADENO,VERIFYCODE from umpay.T_UMPAY_CA_INFO where TRADENO='"+contid+"'";		
 		LogUtil.info(sql);
 		Connection conn = OnTestUcainfoaDBConnect.getConnect();
@@ -74,12 +79,13 @@ public class VerifyCode extends BaseAPI{
 // 			LogUtil.info(rs.getRow());
 			LogUtil.info("查询验证码成功，结果集为："+rs.getString(1));
 			LogUtil.info("查询验证码成功，结果集为："+rs.getString(2));
-			String VERIFYCODE = rs.getString(2);
-			EnvConfig.context.put("VERIFYCODE", VERIFYCODE);
-			LogUtil.info("查询验证码成功，VERIFYCODE为："+VERIFYCODE);
+			String verifyCode = rs.getString(2);
+			EnvConfig.context.put(BusiConsts.verifyCode, verifyCode);
+			LogUtil.info("查询验证码成功，verifyCode为："+verifyCode);
+			Assert.assertTrue("查询验证码成功", true);
 		} catch (Exception e) {
 			LogUtil.error("查询验证码操作失败，SQL语句为：" + sql,e);
-			e.printStackTrace();
+			Assert.assertTrue("查询验证码失败异常", false);
 		} finally {
 			OnTestUcainfoaDBConnect.release(null, pstmt, rs);
 		}

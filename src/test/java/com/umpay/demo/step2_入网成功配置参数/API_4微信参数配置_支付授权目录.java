@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.umpay.call.BaseAPI;
+import com.umpay.consts.BusiConsts;
 import com.umpay.demo.step0_准备工作.EnvConfig;
 import com.umpay.util.AddSign;
 import com.umpay.util.Common;
@@ -30,8 +31,12 @@ public class API_4微信参数配置_支付授权目录 extends BaseAPI {
 	@Test
 	public void config_支付授权目录() throws UnsupportedEncodingException, GeneralSecurityException, IOException{
 		TreeMap<String, Object> reqPay = new TreeMap<String, Object>();
-		reqPay.put("acqSpId", EnvConfig.acqSpId);//代理商编号	10	M	代理商编号(联动平台分配)
-		reqPay.put("acqMerId", acqMerId);//商户编号	8	C	merId和acqMerId至少存在一个
+		/***********	参数校验	*********/
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
+    	Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get(BusiConsts.merId));
+    	
+    	reqPay.put("acqSpId",(String) EnvConfig.context.get(BusiConsts.acqSpId));//服务商编号	10	M	服务商编号
+    	reqPay.put("merId",(String) EnvConfig.context.get(BusiConsts.merId));//报备编号	16	M	报备编号
 		reqPay.put("jsapiPath", "");//支付授权目录
 		reqPay.put("signature", "");	
 

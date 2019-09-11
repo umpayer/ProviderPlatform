@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.umpay.consts.BusiConsts;
 import com.umpay.demo.step0_准备工作.EnvConfig;
 import com.umpay.util.AddSign;
 import com.umpay.util.HttpUtilClient;
@@ -20,19 +21,24 @@ import com.umpay.util.TimeUtil;
 public class AuditMer {
 
     public String queryUrl ="http://10.10.178.87:7807/joinflow/JoinFlow";
-    private static String acqMerId = (String) EnvConfig.context.get("acqMerId");
 
     @SuppressWarnings("unchecked")
     @Test
     public void auditMer() throws Exception{
-        TreeMap<String, Object> reqPay = new TreeMap<String, Object>();
-        reqPay.put("acqMerId", acqMerId);
-        reqPay.put("acqSpId", EnvConfig.acqSpId);
+    	/***********	参数校验	*********/
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
+    	Assert.assertNotNull("参数缺失,内部商户号编号", EnvConfig.context.get(BusiConsts.acqMerId));
+    	Assert.assertNotNull("参数缺失,审核通过与否", EnvConfig.context.get(BusiConsts.nopassFlag));
+    	Assert.assertNotNull("参数缺失,商户类型", EnvConfig.context.get(BusiConsts.merChantType));
+        
+    	TreeMap<String, Object> reqPay = new TreeMap<String, Object>();
+        reqPay.put("acqMerId", EnvConfig.context.get(BusiConsts.acqMerId));
+        reqPay.put("acqSpId", EnvConfig.context.get(BusiConsts.acqSpId));
         reqPay.put("funCode", "ALIVE");
 
-        reqPay.put("nopassFlag", "true");
+        reqPay.put("nopassFlag", EnvConfig.context.get(BusiConsts.nopassFlag));
         reqPay.put("rpid", TimeUtil.date("yyyyMMddHHmmSSSSS"));
-        reqPay.put("merChantType", "3");
+        reqPay.put("merChantType", EnvConfig.context.get(BusiConsts.merChantType));
         reqPay.put("nopassid", "");
         reqPay.put("nopassinfo", "");
         reqPay.put("userName", "");

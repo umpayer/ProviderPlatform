@@ -18,4 +18,7 @@ public class LogUtil {
 	  public static void error(String msg,Exception e){
 		  log.error(msg,e);
 	  }
+	  public static void error(String msg){
+		  log.error(msg);
+	  }
 }

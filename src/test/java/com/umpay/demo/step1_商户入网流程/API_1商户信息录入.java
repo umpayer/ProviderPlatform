@@ -25,19 +25,22 @@ import java.util.TreeMap;
 public class API_1商户信息录入 {
 	private static final Logger log = LoggerFactory.getLogger(API_1商户信息录入.class);
 	private static final String PATH = EnvConfig.url + "merchants/apply";
+	
+	
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void add_小微商户入网() throws Exception{
-		
+	
 		TreeMap<String, Object> reqMer = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqPaper = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqRate = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqbankCardRateLevel1 = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqbankCardRateLevel2 = new TreeMap<String, Object>();
-
+		
+		Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get("acqSpId"));
 		//微信：208493420 支付宝：270729587
-		reqMer.put("acqSpId", EnvConfig.acqSpId);//服务商编号	10	M	服务商编号(联动平台分配)Y471790403有D0
+		reqMer.put("acqSpId", EnvConfig.context.get("acqSpId"));//服务商编号	10	M	服务商编号(联动平台分配)Y471790403有D0
 		reqMer.put("merchantName", "自然人测试商户2");//商户简称	16	M	商户交易显示名称 
 		reqMer.put("paper", reqPaper);//商户详细信息		M	json 格式字符串
 		reqMer.put("rate", reqRate);//手续费费率		M	json 格式字符串
@@ -125,15 +128,16 @@ public class API_1商户信息录入 {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void add_企业个体商户入网() throws Exception{
-		
 		TreeMap<String, Object> reqMer = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqPaper = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqRate = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqbankCardRateLevel1 = new TreeMap<String, Object>();
 		TreeMap<String, Object> reqbankCardRateLevel2 = new TreeMap<String, Object>();
-
+		
+		LogUtil.info("企业个体商户入网参数,服务商编号"+EnvConfig.context.get("acqSpId"));
+		Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get("acqSpId"));
 		//微信：208493420 支付宝：270729587
-		reqMer.put("acqSpId", EnvConfig.acqSpId);//服务商编号	10	M	服务商编号(联动平台分配)Y471790403有D0
+		reqMer.put("acqSpId", EnvConfig.context.get("acqSpId"));//服务商编号	10	M	服务商编号(联动平台分配)Y471790403有D0
 		reqMer.put("merchantName", "企业renjie测试商户3");//商户简称	16	M	商户交易显示名称 
 		reqMer.put("paper", reqPaper);//商户详细信息		M	json 格式字符串
 		reqMer.put("rate", reqRate);//手续费费率		M	json 格式字符串
@@ -194,12 +198,12 @@ public class API_1商户信息录入 {
 		reqbankCardRateLevel2.put("feeRateUnionpayDebitCap", "3000");//银联手续费率(借记封顶)
 		reqbankCardRateLevel2.put("feeRateUnionpayCredit", "0.62");//银联手续费率(贷记)
 		
-		
+        LogUtil.info("企业个体商户入网参数配置成功");
 		//对请求报文做加签处理
-		String reqMerinfo = AddSign.addSign(reqMer);
-		Map<String, Object> reqMap = JSONObject.parseObject(reqMerinfo);
+        try{
+        	String reqMerinfo = AddSign.addSign(reqMer);
+        	Map<String, Object> reqMap = JSONObject.parseObject(reqMerinfo);
 
-		try{
 			LogUtil.info("输出请求地址:"+ PATH);
 			//发送post请求
 			String result = HttpUtilClient.doPostJson(PATH, new JSONObject(), reqMap);

@@ -13,7 +13,7 @@ import java.util.Map;
 public class EnvConfig {
 
     public static final String url = ConfigUtil.getConfig("umpayUrl");
-    public static final String acqSpId = ConfigUtil.getConfig("acqSpId");
+//    public static final String acqSpId = ConfigUtil.getConfig("acqSpId");
     public static final String signMobileNo = ConfigUtil.getConfig("signMobileNo");
 
     public static final String filePath_资质 = ConfigUtil.getConfig("filePath");
@@ -25,6 +25,7 @@ public class EnvConfig {
         context.put("merId", "M2019090400000478");//报备编号M2019082000000270
         context.put("verifyCode", "098500");//挑战码
         context.put("acqMerId", "42516662");//商户号
+        context.put("acqSpId",  ConfigUtil.getConfig("acqSpId"));//商户号
 //        context.put("orderNo", "JD201909030945440001");//订单号
 //        context.put("refundOrderNo", "JD201909030945440001");//退费订单号
     }
