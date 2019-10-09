@@ -87,4 +87,19 @@ public class OnTestUmssfrnaDBConnect {
 			}
 		}
 	}
+	public static void release(Connection conn, PreparedStatement pst){
+			try {
+				if (pst != null)
+					pst.close();
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			} finally {//无论stmt是否关闭成功 都进行关闭数据库连接
+				try {
+					if (conn != null)
+						conn.close();
+				} catch (SQLException sqle) {
+					sqle.printStackTrace();
+				}
+			}
+	}
 }

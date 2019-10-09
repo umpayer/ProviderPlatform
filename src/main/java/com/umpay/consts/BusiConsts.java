@@ -12,6 +12,7 @@ public class BusiConsts {
 	//********************************业务常量值*********************************************//
 //	public static final String ysfMerId = "ysfMerId";//报备编号
 	public static final String acqMerId = "acqMerId";//内部商户号
+	public static final String auditStatus = "auditStatus";//审核状态
 	public static final String acqSpId = "acqSpId";//代理商编号
 	public static final String merId = "merId";//代理商编号
 	public static final String nopassFlag = "nopassFlag";//审核通过与否

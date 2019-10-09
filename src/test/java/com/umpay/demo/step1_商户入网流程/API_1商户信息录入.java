@@ -74,7 +74,7 @@ public class API_1商户信息录入 {
 		reqPaper.put("settleIdNo", "412701198707292019");//身份证号	18	Y	 513436200008027310
 		reqPaper.put("openBank", "南京银行");//开户银行名称	4	Y	参见附件二
 		reqPaper.put("openSubBank", "北京银行");//开户支行名称	64	Y
-		
+		reqPaper.put("signType", "1");//1-开通电子签章
 		reqPaper.put("webSite", "http://www.wang163.com");
 		reqPaper.put("signMobileNo", EnvConfig.signMobileNo);
 		reqPaper.put("signCertNo", "412701198707292019");
@@ -146,6 +146,7 @@ public class API_1商户信息录入 {
 		reqMer.put("signature", "");//
 		reqMer.put("reqDate", "20190815");//
 		reqMer.put("reqTime", "120000");//
+
 		//paper
 		reqPaper.put("merchantType", "2");//商户类型	1	M	1:个体 2:企业 3:小微
 		reqPaper.put("businessLicenseCode", "911306056665997504");//营业执照编号	32	C	merFlag= 1、2必传
@@ -173,6 +174,7 @@ public class API_1商户信息录入 {
 		reqPaper.put("openBank", "北京银行");//开户银行名称	4	Y	参见附件二
 		reqPaper.put("openSubBank", "北京银行");//开户支行名称	64	Y
 		
+		reqPaper.put("signType", "1");//1-开通电子签章
 		reqPaper.put("webSite", "http://www.wang163.com");
 		reqPaper.put("signMobileNo", EnvConfig.signMobileNo);
 		reqPaper.put("signCertNo", "412701198707292019");

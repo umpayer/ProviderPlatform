@@ -27,6 +27,10 @@ public enum StepEnum {
 	CloseOrder("0028","关闭订单","CloseOrder","【关闭订单】","pay/queryOrder"),
 	SettleFileDown("0029","对账文件下载","SettleFileDown","【对账文件下载】","pay/queryOrder"),
 	
+	QurayYsfMerInfo("3001","查询商户信息","QurayYsfMerInfo","【查询商户信息】","DB"),
+	UpdateYsfMerInfo("3002","更新商户信息","UpdateYsfMerInfo","【更新商户信息】","DB"),
+
+	
 	Other("9999","其他节点","Other","【其他节点】","其他");
 	private String flowId;//流程编号
 	private String flowDesc;//流程描述

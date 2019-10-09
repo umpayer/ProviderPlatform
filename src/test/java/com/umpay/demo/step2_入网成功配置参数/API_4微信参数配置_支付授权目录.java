@@ -33,11 +33,11 @@ public class API_4微信参数配置_支付授权目录 extends BaseAPI {
 		TreeMap<String, Object> reqPay = new TreeMap<String, Object>();
 		/***********	参数校验	*********/
     	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.acqSpId));
-    	Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get(BusiConsts.merId));
+    	Assert.assertNotNull("参数缺失,报备编号", EnvConfig.context.get(BusiConsts.acqMerId));
     	
     	reqPay.put("acqSpId",(String) EnvConfig.context.get(BusiConsts.acqSpId));//服务商编号	10	M	服务商编号
-    	reqPay.put("merId",(String) EnvConfig.context.get(BusiConsts.merId));//报备编号	16	M	报备编号
-		reqPay.put("jsapiPath", "");//支付授权目录
+    	reqPay.put("acqMerId",(String) EnvConfig.context.get(BusiConsts.acqMerId));
+		reqPay.put("jsapiPath", "abc");//支付授权目录
 		reqPay.put("signature", "");	
 
 		String reqpay = AddSign.addSign(reqPay);
@@ -58,7 +58,20 @@ public class API_4微信参数配置_支付授权目录 extends BaseAPI {
 				Assert.assertTrue("微信参数配置_支付授权目录失败：" + respMsg, false);
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
+			LogUtil.error("微信参数配置_支付授权目录异常", e);
 			Assert.assertTrue("微信参数配置_支付授权目录异常", false);
 		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+	    	  //1、准备工作检查
+	        new EnvConfig().initConfig();
+	        EnvConfig.context.clear();
+	        EnvConfig.context.put(BusiConsts.acqSpId, "Y471790403");
+	        EnvConfig.context.put(BusiConsts.acqMerId, "42517305");
+	        EnvConfig.context.put(BusiConsts.jsapiPath, "");
+	        //
+	        new API_4微信参数配置_支付授权目录().config_支付授权目录();
 	}
 }

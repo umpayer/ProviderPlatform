@@ -48,7 +48,7 @@ public class API3_1公众号小程序支付 extends BaseAPI {
 //		reqPay.put("appId", "");//APPID	18	C	微信及支付宝的AppId，如获取OpenID所使用的AppID非下单商户主体资质，则该字段无需上传
 //		reqPay.put("subAppId", "");//子商户appid	18	O	二级商户的appId
 //		reqPay.put("paymentValidTime", "300");//订单有效时间(秒)	4	O	当传递小于300秒或大于1800秒或不传递时系统默认为300秒。订单有效时间从调起用户密码键盘开始算起，超时之后,用户无法继续支付。
-//		reqPay.put("backUrl", "http://www.baidu.com");//通知地址	256	O	结果通知地址. 必须以 http:// 或 https:// 开始,支持大小写字母,数字,'/','&','%','?','='. 暂不支持通知地址中包含其他字符,包含url编码后的结果 如%3C %3E等
+		reqPay.put("backUrl", "http://www.renjiework.com/mblog/");//通知地址	256	O	结果通知地址. 必须以 http:// 或 https:// 开始,支持大小写字母,数字,'/','&','%','?','='. 暂不支持通知地址中包含其他字符,包含url编码后的结果 如%3C %3E等
 		reqPay.put("signature", "");
 		
 		String reqpay = AddSign.addSign(reqPay);
