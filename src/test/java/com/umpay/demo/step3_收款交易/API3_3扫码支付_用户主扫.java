@@ -43,11 +43,13 @@ public class API3_3扫码支付_用户主扫 extends BaseAPI {
         reqPay.put("acqMerId", EnvConfig.context.get(BusiConsts.acqMerId));
         Assert.assertNotNull("参数缺失,订单类型", EnvConfig.context.get(BusiConsts.orderType));
     	reqPay.put("orderType",(String)EnvConfig.context.get(BusiConsts.orderType) );//订单类型 M alipay-支付宝,wechat-微信支付 ,unionpay-银联二维码
+    	Assert.assertNotNull("参数缺失,服务商编号", EnvConfig.context.get(BusiConsts.txnAmt));
+    	reqPay.put("txnAmt", EnvConfig.context.get(BusiConsts.txnAmt));//交易金额	13	M	是人民币，且以分为单位
     	
+//    	reqPay.put("txnAmt", "1");//交易金额	13	M	是人民币，且以分为单位
 //        reqPay.put("orderType", "wechat");//订单类型	12	M alipay-支付宝,wechat-微信支付 ,unionpay-银联二维码
 		reqPay.put("orderTime",TimeUtil.datetime14());
 		reqPay.put("orderNo", Common.genOrderId());//商户订单号	64	M	商户的支付订单号
-		reqPay.put("txnAmt", "1");//交易金额	13	M	是人民币，且以分为单位
 		reqPay.put("goodsInfo", "商品信息");//商品信息	128	O	可上送商品描述、商户订单号等信息，用户付款成功后会在微信账单页面展示
 		reqPay.put("signature", "");
 		

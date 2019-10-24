@@ -44,12 +44,15 @@ public class API_2资质上传接口 extends API_2资质上传接口parent {
 			test_signAuthLetterPhoto(paramMap);
 			//门店门头照
 			test_storeHeadPhoto(paramMap);
-			//门店外景照
-			test_storeShopPhoto(paramMap);
+//			//门店外景照
+//			test_storeShopPhoto(paramMap);
 			//门店内景照
 			test_storeHallPhoto(paramMap);
 			//门店收银台照
 			test_storeCashierPhoto(paramMap);
+//			//7、法人手持身份证
+//			test_idCardHandle(paramMap);
+//			System.out.println("2.2.7资质上传接口_个体_企业商户:法人手持身份证上传成功！");
 		}catch (Exception e) {
 			Assert.assertTrue(e.getMessage(), false);
 		}
@@ -83,6 +86,16 @@ public class API_2资质上传接口 extends API_2资质上传接口parent {
 			test_bankCardPhotoBack(paramMap);
 			//6、营业执照照片
 			test_businessLicensePhoto(paramMap);
+//			//7、法人手持身份证
+//			test_idCardHandle(paramMap);
+//			//门店外景照
+//			test_storeShopPhoto(paramMap);
+			//门店内景照
+			test_storeHallPhoto(paramMap);
+			//门店收银台照
+			test_storeCashierPhoto(paramMap);
+			//门店门头照
+			test_storeHeadPhoto(paramMap);
 		}catch (Exception e) {
 			Assert.assertTrue(e.getMessage(), false);
 		}

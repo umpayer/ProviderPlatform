@@ -90,9 +90,9 @@ public class API_1商户信息录入 {
 		reqRate.put("feeRateD0", "0.04");//D0手续费	
 		reqRate.put("feeRateWithdraw", "1000");//提现手续费	
 		//bankCardRateLevel1
-		reqbankCardRateLevel1.put("feeRateUnionpayDebit", "0.50");//银联手续费率(借记)	
+		reqbankCardRateLevel1.put("feeRateUnionpayDebit", "0.5001");//银联手续费率(借记)	
 		reqbankCardRateLevel1.put("feeRateUnionpayDebitCap", "2000");//银联手续费率(借记封顶)		 
-		reqbankCardRateLevel1.put("feeRateUnionpayCredit", "0.52");//银联手续费率(贷记)	
+		reqbankCardRateLevel1.put("feeRateUnionpayCredit", "0.5201");//银联手续费率(贷记)	
 		//bankCardRateLevel2
 		reqbankCardRateLevel2.put("feeRateUnionpayDebit", "0.60");//银联手续费率(借记)	
 		reqbankCardRateLevel2.put("feeRateUnionpayDebitCap", "3000");//银联手续费率(借记封顶)
