@@ -21,9 +21,9 @@ public class OnTestUcainfoaDBConnect {
 	}
 	
 
-	public static final String jdbcurl="jdbc:db2://10.10.73.95:60000/upontest";
-	public static final String user="ucainfoa";
-	public static final String pwd="ucainfoa";
+	public static final String jdbcurl="jdbc:db2://xx.xx.xx.xx:xxxx/xxxxx";
+	public static final String user="xxxxx";
+	public static final String pwd="xxxxxx";
 	public static Connection getConnect(){
 		if(conn == null){
 			synchronized(OnTestUcainfoaDBConnect.class){
