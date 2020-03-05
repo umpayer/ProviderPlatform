@@ -20,12 +20,10 @@ public class OnTestUmssfrnaDBConnect {
 
 	}
 	
-//	public static final String jdbcurl="jdbc:db2://10.10.67.74:50000/upondev";
-//	public static final String user="uplatmng";
-//	public static final String pwd="uplatmng";
-	public static final String jdbcurl="jdbc:db2://10.10.73.95:60000/upontest";
-	public static final String user="umssfrna";
-	public static final String pwd="umssfrna";
+
+	public static final String jdbcurl="jdbc:db2://xx.xx.xx.xx:xxxxx/xxxxx";
+	public static final String user="uxxxxxxx";
+	public static final String pwd="umxxxxxx";
 	public static Connection getConnect(){
 		if(conn == null){
 			synchronized(OnTestUmssfrnaDBConnect.class){
