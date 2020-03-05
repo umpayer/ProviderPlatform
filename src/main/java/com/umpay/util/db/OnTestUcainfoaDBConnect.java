@@ -20,9 +20,7 @@ public class OnTestUcainfoaDBConnect {
 
 	}
 	
-//	public static final String jdbcurl="jdbc:db2://10.10.67.74:50000/upondev";
-//	public static final String user="uplatmng";
-//	public static final String pwd="uplatmng";
+
 	public static final String jdbcurl="jdbc:db2://10.10.73.95:60000/upontest";
 	public static final String user="ucainfoa";
 	public static final String pwd="ucainfoa";
